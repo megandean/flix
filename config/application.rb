@@ -23,6 +23,9 @@ module Flix
     # -- all .rb files in that directory are automatically loaded.
     console do
       ActiveRecord::Base.connection
+      config.generators do |g|
+        g.test_framework false
+      end
     end
   end
 end
