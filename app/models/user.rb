@@ -5,4 +5,14 @@ class User < ApplicationRecord
                     format: /\A\S+@\S+\z/,
                     uniqueness: {case_sensitive: false}
   validates :password, length: { minimum: 10, allow_blank: true }
+
+  has_many :favorites, dependent: :destroy
+    has_many :reviews, dependent: :destroy
+  has_many :favorite_movies, through: :favorites, source: :movie
+
+  def self.authenticate(email, password)
+    user = User.find_by(email: email)
+    user && user.authenticate(password)
+  end
+
 end
